@@ -1,0 +1,8 @@
+# Python requirements for StudyAI (if using Python for AI processing)
+# Note: This project is primarily PHP-based, but if Python components are added:
+
+# Flask==2.3.3
+# requests==2.31.0
+# google-generativeai==0.3.2
+# anthropic==0.7.8
+# python-dotenv==1.0.0

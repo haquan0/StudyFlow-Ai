@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyAI — Akıllı Ders Planlayıcı</title>
+  <meta name="description" content="Yerel öneri motoru ile kişisel çalışma planı oluştur, hedeflerine ulaş." />
+  <meta name="theme-color" content="#7c3aed" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta property="og:title" content="StudyAI - Akıllı Ders Calisma Planlayici" />
+  <meta property="og:description" content="Yerel planlayıcı, pomodoro, timeline, analytics ve modern dashboard." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body class="dark">
+  <noscript>
+    <div style="padding:16px;background:#111;color:#fff;text-align:center;">
+      StudyAI calismasi icin JavaScript etkin olmali.
+    </div>
+  </noscript>
+  <div id="appLoader" class="app-loader">
+    <img src="assets/logo.svg" alt="StudyAI Logo" class="loader-logo" />
+    <p>StudyAI yukleniyor...</p>
+  </div>
+
+  <section id="authPage" class="auth-page">
+    <div class="auth-panel glass">
+      <div class="auth-header">
+        <img src="assets/logo.svg" alt="StudyAI" class="auth-logo" />
+        <div>
+          <h1>StudyAI Pro</h1>
+          <p>Yerel öneri motoru ve planlayıcıyla çalışma rutinini düzene sok.</p>
+        </div>
+      </div>
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-target="login" id="showLoginBtn">Giriş Yap</button>
+        <button type="button" class="auth-tab" data-target="register" id="showRegisterBtn">Kayıt Ol</button>
+      </div>
+      <div class="auth-body">
+        <form class="auth-pane login visible" id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">E-posta</label>
+            <input id="loginEmail" type="email" placeholder="ornek@studyai.com" required />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Şifre</label>
+            <input id="loginPassword" type="password" placeholder="Şifreniz" required />
+          </div>
+          <div class="form-row auth-form-row">
+            <label class="switch"><input type="checkbox" id="rememberMe" /><span class="slider"></span></label>
+            <span>Beni Hatırla</span>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit">Giriş Yap</button>
+        </form>
+
+        <form class="auth-pane register" id="registerForm">
+          <div class="form-group">
+            <label for="registerName">Ad Soyad</label>
+            <input id="registerName" type="text" placeholder="Adınız" required />
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">E-posta</label>
+            <input id="registerEmail" type="email" placeholder="ornek@studyai.com" required />
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Şifre</label>
+            <input id="registerPassword" type="password" placeholder="Güçlü bir şifre" required />
+          </div>
+          <div class="form-row auth-form-row">
+            <label class="switch"><input type="checkbox" id="registerRemember" /><span class="slider"></span></label>
+            <span>Beni Hatırla</span>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit">Kayıt Ol</button>
+        </form>
+      </div>
+      <div class="auth-footer">
+        <p>StudyAI Pro’ya geçiş yaparak tüm görevlere, akıllı öneri motoruna ve bulut kaydına eriş.
+        </p>
+        <div class="auth-error" id="authError"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Sidebar ─────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.svg" alt="StudyAI" class="brand-logo" />
+      <span class="logo-text">StudyAI</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">◉</span> Dashboard
+      </a>
+      <a href="#" class="nav-item" data-page="courses">
+        <span class="nav-icon">◈</span> Derslerim
+      </a>
+      <a href="#" class="nav-item" data-page="planner">
+        <span class="nav-icon">◇</span> Planlayıcı
+      </a>
+      <a href="#" class="nav-item" data-page="pomodoro">
+        <span class="nav-icon">◎</span> Pomodoro
+      </a>
+      <a href="#" class="nav-item" data-page="stats">
+        <span class="nav-icon">◫</span> İstatistikler
+      </a>
+      <a href="#" class="nav-item" data-page="calendar">
+        <span class="nav-icon">◍</span> Takvim
+      </a>
+      <a href="#" class="nav-item" data-page="achievements">
+        <span class="nav-icon">◌</span> Başarılarım
+      </a>
+      <a href="#" class="nav-item" data-page="settings">
+        <span class="nav-icon">⚙</span> Ayarlar
+      </a>
+    </nav>
+
+    <div class="sidebar-streak">
+      <div class="streak-flame">🔥</div>
+      <div class="streak-info">
+        <span class="streak-count" id="streakCount">0</span>
+        <span class="streak-label">günlük seri</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── Mobile Header ────────────────────────────────────── -->
+  <header class="mobile-header">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="logo-text">StudyAI</span>
+    <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">☀</button>
+  </header>
+
+  <!-- ─── Main Content ─────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <div class="topbar glass">
+      <div class="topbar-left">
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        <p class="page-sub" id="pageSub">Hoş geldin! Bugün ne çalışacaksın?</p>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle desktop-only" id="themeToggleDesktop" aria-label="Tema değiştir">☀</button>
+        <button class="btn btn-primary" id="addCourseBtn">+ Ders Ekle</button>
+        <div class="user-pill" id="userPill">
+          <button class="user-button" id="userMenuBtn" aria-haspopup="true" aria-expanded="false">
+            <span class="user-avatar">A</span>
+            <span id="userNameDisplay">Pro User</span>
+          </button>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="dropdown-item user-info">Hoş geldin, <strong id="userNameSmall">User</strong></div>
+            <button class="dropdown-item" id="logoutBtn">Çıkış Yap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  PAGE: DASHBOARD                            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="page active" id="page-dashboard">
+
+      <!-- Stats Row -->
+      <div class="stats-grid">
+        <div class="stat-card animate-in" style="--delay:0.1s">
+          <div class="stat-icon">📚</div>
+          <div class="stat-body">
+            <span class="stat-value" id="totalCourses">0</span>
+            <span class="stat-label">Aktif Ders</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.15s">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-body">
+            <span class="stat-value" id="todayHours">0h</span>
+            <span class="stat-label">Bugünkü Hedef</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.2s">
+          <div class="stat-icon">✅</div>
+          <div class="stat-body">
+            <span class="stat-value" id="completedTasks">0%</span>
+            <span class="stat-label">Tamamlandı</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.25s">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-body">
+            <span class="stat-value" id="nextExam">—</span>
+            <span class="stat-label">Yakın Sınav</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.3s">
+          <div class="stat-icon">📈</div>
+          <div class="stat-body">
+            <span class="stat-value" id="successRate">0%</span>
+            <span class="stat-label">Başarı Yüzdesi</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.35s">
+          <div class="stat-icon">🏁</div>
+          <div class="stat-body">
+            <span class="stat-value" id="goalCompletionRate">0%</span>
+            <span class="stat-label">Hedef Tamamlama</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.4s">
+          <div class="stat-icon">🟢</div>
+          <div class="stat-body">
+            <span class="stat-value" id="systemStatus">--</span>
+            <span class="stat-label">System Status</span>
+          </div>
+        </div>
+        <div class="stat-card animate-in" style="--delay:0.45s">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-body">
+            <span class="stat-value" id="aiServiceStatus">--</span>
+            <span class="stat-label">Akıllı Mod</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="dashboard-grid">
+
+        <!-- Today's Tasks -->
+        <div class="card animate-in" style="--delay:0.3s">
+          <div class="card-header">
+            <h2 class="card-title">Bugünün Görevleri</h2>
+            <span class="badge" id="taskBadge">0 görev</span>
+          </div>
+          <div id="todayTasks" class="task-list">
+            <div class="empty-state">
+              <span>🎓</span>
+              <p>Henüz ders eklemedin.<br/>Sağ üstten ders ekleyerek başla!</p>
+            </div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Günlük İlerleme</span>
+              <span id="progressPct">0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          </div>
+        </div>
+
+        <!-- Suggestion Box -->
+        <div class="card ai-card animate-in" style="--delay:0.35s">
+          <div class="card-header">
+            <h2 class="card-title">🎯 Günlük Öneri</h2>
+            <button class="btn btn-ghost btn-sm" id="refreshAI">↻ Yenile</button>
+          </div>
+          <div id="aiSuggestion" class="ai-suggestion">
+            <p class="ai-loading">Öneriler hazırlanıyor...</p>
+          </div>
+          <div class="ai-motivation" id="motivationCard">
+            <span class="motivation-emoji">💡</span>
+            <p id="motivationText">Derslerini ekle, sana özel motivasyon mesajı oluşturalım!</p>
+          </div>
+        </div>
+
+        <!-- Weekly Goal -->
+        <div class="card animate-in" style="--delay:0.4s">
+          <div class="card-header">
+            <h2 class="card-title">Haftalık Hedef</h2>
+          </div>
+          <div id="weeklyGoals" class="weekly-goals">
+            <div class="empty-state small"><p>Ders ekle, haftalık plan otomatik olarak oluşturulsun.</p></div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="card animate-in" style="--delay:0.45s">
+          <div class="card-header">
+            <h2 class="card-title">Başarı Rozetleri</h2>
+          </div>
+          <div id="badgesGrid" class="badges-grid"></div>
+        </div>
+
+        <div class="card animate-in" style="--delay:0.5s">
+          <div class="card-header"><h2 class="card-title">Motivational Quote</h2></div>
+          <p id="motivationalQuote" class="quote-widget">Disiplin, motivasyonun sustuğu yerde devam eder.</p>
+          <div class="weekly-progress-wrap">
+            <div class="progress-label"><span>Haftalık Progress</span><span id="weeklyProgressText">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="weeklyProgressFill"></div></div>
+          </div>
+        </div>
+
+        <div class="card animate-in" style="--delay:0.55s">
+          <div class="card-header"><h2 class="card-title">Session History</h2></div>
+          <div id="sessionHistory" class="session-history"></div>
+        </div>
+        <div class="card animate-in" style="--delay:0.6s">
+          <div class="card-header"><h2 class="card-title">Local Analytics</h2></div>
+          <div id="analyticsSummary" class="analytics-summary"></div>
+        </div>
+
+      </div><!-- /dashboard-grid -->
+
+      <!-- Chart Row -->
+      <div class="chart-card animate-in" style="--delay:0.5s">
+        <div class="card-header">
+          <h2 class="card-title">Haftalık Çalışma Grafiği</h2>
+        </div>
+        <canvas id="weeklyChart" height="100"></canvas>
+      </div>
+      <div class="chart-card animate-in" style="--delay:0.55s; margin-top:20px;">
+        <div class="card-header">
+          <h2 class="card-title">Günlük Çalışma Süresi Grafiği</h2>
+        </div>
+        <canvas id="dailyChart" height="100"></canvas>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  PAGE: COURSES                              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="page" id="page-courses">
+      <div class="courses-grid" id="coursesGrid">
+        <div class="empty-state large">
+          <span>📖</span>
+          <p>Henüz ders yok. "Ders Ekle" butonuna bas!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  PAGE: PLANNER                              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="page" id="page-planner">
+      <div class="planner-header">
+        <p class="section-desc">Yerel planlayıcı, derslerini analiz ederek sana özel çalışma programı oluşturur.</p>
+        <button class="btn btn-primary btn-lg" id="generatePlanBtn">⚡ Plan Oluştur</button>
+      </div>
+      <div class="card planner-settings-card">
+        <div class="card-header"><h2 class="card-title">Planlayıcı Ayarları</h2></div>
+        <div class="form-row">
+          <div class="form-group full-width">
+            <p id="aiStatusText">Planlayıcı, tarayıcıda çalışan yerel algoritma ile çalışır.</p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="saveAISettingsBtn">Ayarları Yenile</button>
+          <button class="btn btn-ghost" id="exportDataBtn">JSON Export</button>
+          <button class="btn btn-ghost" id="importDataBtn">JSON Import</button>
+          <input type="file" id="importJsonInput" accept="application/json" hidden />
+        </div>
+      </div>
+      <div id="plannerOutput" class="planner-output"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  PAGE: POMODORO                             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="page" id="page-pomodoro">
+      <div class="pomodoro-container">
+        <div class="pomodoro-card">
+          <div class="pom-mode-selector">
+            <button class="pom-mode active" data-mode="work">Çalışma</button>
+            <button class="pom-mode" data-mode="short">Kısa Mola</button>
+            <button class="pom-mode" data-mode="long">Uzun Mola</button>
+          </div>
+          <div class="pom-timer" id="pomTimer">25:00</div>
+          <div class="pom-label" id="pomLabel">Odaklan! 🎯</div>
+          <div class="pom-controls">
+            <button class="btn btn-primary btn-lg" id="pomStart">▶ Başlat</button>
+            <button class="btn btn-ghost" id="pomReset">↺ Sıfırla</button>
+          </div>
+          <div class="pom-stats">
+            <div class="pom-stat">
+              <span class="pom-stat-value" id="pomCompleted">0</span>
+              <span class="pom-stat-label">Tamamlanan</span>
+            </div>
+            <div class="pom-stat">
+              <span class="pom-stat-value" id="pomTotalMin">0</span>
+              <span class="pom-stat-label">Toplam Dakika</span>
+            </div>
+          </div>
+        </div>
+        <div class="pom-tip-card">
+          <h3>💡 Pomodoro Tekniği</h3>
+          <ul>
+            <li>25 dakika odaklanarak çalış</li>
+            <li>5 dakika kısa mola ver</li>
+            <li>4 turdan sonra 15–30 dk uzun mola</li>
+            <li>Telefonu bir kenara bırak!</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  PAGE: STATS                                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="page" id="page-stats">
+      <div class="stats-page-grid">
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Ders Dağılımı</h2></div>
+          <canvas id="doughnutChart" height="220"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Zorluk Analizi</h2></div>
+          <canvas id="difficultyChart" height="220"></canvas>
+        </div>
+        <div class="card full-width">
+          <div class="card-header"><h2 class="card-title">Tüm Dersler — Özet</h2></div>
+          <div id="statsTable" class="stats-table"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-calendar">
+      <div class="calendar-grid">
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Study Timeline (Hafta)</h2></div>
+          <div id="weeklyTimeline" class="weekly-timeline"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2 class="card-title">Yaklaşan Sınavlar</h2></div>
+          <div id="upcomingExams" class="upcoming-exams"></div>
+        </div>
+        <div class="card full-width">
+          <div class="card-header"><h2 class="card-title">Bugünkü Plan</h2></div>
+          <div id="todayTimeline" class="today-timeline"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-achievements">
+      <div class="card">
+        <div class="card-header"><h2 class="card-title">Başarılarım</h2></div>
+        <div id="achievementsGrid" class="achievements-grid"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="card settings-panel">
+        <div class="card-header"><h2 class="card-title">Genel Ayarlar</h2></div>
+        <div class="settings-grid">
+          <div class="form-group full-width">
+            <p>Planlayıcı yerel algoritma ile calisir; internet baglantisi olmasa da calisma planini olusturabilir.</p>
+          </div>
+          <div class="form-group">
+            <label for="settingsWorkMin">Pomodoro Çalışma (dk)</label>
+            <input id="settingsWorkMin" type="number" min="10" max="90" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="settingsShortMin">Kısa Mola (dk)</label>
+            <input id="settingsShortMin" type="number" min="3" max="30" step="1" />
+          </div>
+          <div class="form-group">
+            <label for="settingsLongMin">Uzun Mola (dk)</label>
+            <input id="settingsLongMin" type="number" min="10" max="60" step="1" />
+          </div>
+          <div class="toggle-row">
+            <span>Bildirimler</span>
+            <label class="switch">
+              <input id="settingsNotifications" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="saveSettingsBtn">Ayarları Kaydet</button>
+          <button class="btn btn-ghost" id="settingsThemeBtn">Temayı Değiştir</button>
+          <button class="btn btn-danger" id="resetDataBtn">Verileri Sıfırla</button>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /main-content -->
+
+  <!-- ─── Add Course Modal ──────────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Yeni Ders Ekle</h2>
+        <button class="modal-close" id="modalClose" aria-label="Kapat">✕</button>
+      </div>
+      <form class="modal-form" id="courseForm" novalidate>
+        <div class="form-group">
+          <label for="courseName">Ders Adı *</label>
+          <input type="text" id="courseName" placeholder="örn. Matematik" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="examDate">Sınav Tarihi *</label>
+            <input type="date" id="examDate" required />
+          </div>
+          <div class="form-group">
+            <label for="dailyHours">Günlük Süre (saat)</label>
+            <input type="number" id="dailyHours" min="0.5" max="12" step="0.5" value="2" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Zorluk Seviyesi</label>
+          <div class="difficulty-selector" id="difficultySelector">
+            <button type="button" class="diff-btn" data-level="1">😊 Kolay</button>
+            <button type="button" class="diff-btn active" data-level="2">😐 Orta</button>
+            <button type="button" class="diff-btn" data-level="3">😰 Zor</button>
+            <button type="button" class="diff-btn" data-level="4">💀 Çok Zor</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="courseColor">Renk</label>
+          <div class="color-picker" id="colorPicker">
+            <button type="button" class="color-dot active" data-color="#7c3aed" style="background:#7c3aed"></button>
+            <button type="button" class="color-dot" data-color="#2563eb" style="background:#2563eb"></button>
+            <button type="button" class="color-dot" data-color="#059669" style="background:#059669"></button>
+            <button type="button" class="color-dot" data-color="#d97706" style="background:#d97706"></button>
+            <button type="button" class="color-dot" data-color="#dc2626" style="background:#dc2626"></button>
+            <button type="button" class="color-dot" data-color="#db2777" style="background:#db2777"></button>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="cancelBtn">İptal</button>
+          <button type="submit" class="btn btn-primary">✓ Ders Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="achievementPopup" class="achievement-popup" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/pomodoro.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

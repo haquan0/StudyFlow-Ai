@@ -1,0 +1,28 @@
+2026-05-13 15:50:31 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:31 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:32 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:32 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5 (404)"}
+2026-05-13 15:50:41 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:41 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:41 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:41 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:42 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:42 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:42 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5 (404)"}
+2026-05-13 15:50:42 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5 (404)"}
+2026-05-13 15:50:55 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:55 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:56 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:50:56 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5 (404)"}
+2026-05-13 15:52:24 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:52:24 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:52:24 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:52:24 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: text-bison-001 (404)"}
+2026-05-13 15:52:24 ERROR: Gemini model endpoint hatasi {"model":"text-bison-001","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:52:24 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: text-bison-001 (404)"}
+2026-05-13 15:54:28 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:54:28 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5-flash (404)"}
+2026-05-13 15:54:28 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:54:28 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5-flash (404)"}
+2026-05-13 15:55:25 ERROR: Gemini model endpoint hatasi {"model":"gemini-1.5-flash","status":404,"body":"{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"}
+2026-05-13 15:55:25 ERROR: AI API error {"user_id":5,"error":"Gemini model hatasi: gemini-1.5-flash (404)"}

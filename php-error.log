@@ -1,0 +1,22 @@
+[12-May-2026 22:15:54 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'studyai' in C:\xampp\htdocs\StudyAI\api\db.php:24
+Stack trace:
+#0 C:\xampp\htdocs\StudyAI\api\db.php(24): PDO->__construct('mysql:host=127....', 'root', Object(SensitiveParameterValue), Array)
+#1 C:\xampp\htdocs\StudyAI\api\db.php(30): getPDO()
+#2 C:\xampp\htdocs\StudyAI\api\db.php(42): dbQuery('SELECT id FROM ...', Array)
+#3 C:\xampp\htdocs\StudyAI\api\auth.php(46): dbFetch('SELECT id FROM ...', Array)
+#4 {main}
+  thrown in C:\xampp\htdocs\StudyAI\api\db.php on line 24
+[12-May-2026 22:17:55 Europe/Berlin] PHP Fatal error:  Uncaught RuntimeException: Database "studyai" not found. Create it using database.sql and a local .env file, or copy .env.example to .env with correct MySQL settings. in C:\xampp\htdocs\StudyAI\api\db.php:29
+Stack trace:
+#0 C:\xampp\htdocs\StudyAI\api\db.php(41): getPDO()
+#1 C:\xampp\htdocs\StudyAI\api\db.php(53): dbQuery('SELECT id FROM ...', Array)
+#2 C:\xampp\htdocs\StudyAI\api\auth.php(46): dbFetch('SELECT id FROM ...', Array)
+#3 {main}
+  thrown in C:\xampp\htdocs\StudyAI\api\db.php on line 29
+[13-May-2026 15:50:30 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '5-ai' for key 'uq_user_endpoint' in C:\xampp\htdocs\StudyAI\api\db.php:42
+Stack trace:
+#0 C:\xampp\htdocs\StudyAI\api\db.php(42): PDOStatement->execute(Array)
+#1 C:\xampp\htdocs\StudyAI\api\middleware.php(172): dbQuery('INSERT INTO rat...', Array)
+#2 C:\xampp\htdocs\StudyAI\api\ai.php(9): rateLimit(5, 'ai', 10, 1)
+#3 {main}
+  thrown in C:\xampp\htdocs\StudyAI\api\db.php on line 42
