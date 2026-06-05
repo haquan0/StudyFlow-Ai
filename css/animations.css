@@ -1,0 +1,113 @@
+/* =====================================================
+   animations.css — Keyframes & entrance animations
+   ===================================================== */
+
+/* ─── Entrance ───────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Glow pulse on accent elements ─────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%       { box-shadow: 0 0 0 8px transparent; }
+}
+
+/* ─── Shimmer for loading ────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Animate-in helper ──────────────────────── */
+.animate-in {
+  animation: fadeInUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ─── Page transition ────────────────────────── */
+.page.active {
+  animation: fadeIn 0.3s ease both;
+}
+
+/* ─── Badge earn ─────────────────────────────── */
+@keyframes badgePop {
+  0%   { transform: scale(0.7); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.badge-pop { animation: badgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* ─── Streak number ──────────────────────────── */
+@keyframes countUp {
+  from { transform: translateY(6px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ─── Task completion tick ───────────────────── */
+@keyframes tickIn {
+  from { transform: scale(0) rotate(-45deg); }
+  to   { transform: scale(1) rotate(0deg); }
+}
+
+.tick-in { animation: tickIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* ─── Notification toast ─────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-lg);
+  padding: 14px 20px;
+  font-size: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  animation: fadeInUp 0.3s ease both;
+  max-width: 320px;
+}
+
+.toast.success { border-color: rgba(16,185,129,0.3); }
+.toast.error   { border-color: rgba(239,68,68,0.3); }
+
+.toast-exit {
+  animation: fadeIn 0.3s ease reverse both;
+}
